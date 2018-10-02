@@ -1,0 +1,15 @@
+{
+    "name": "wcs/simplemvc",
+    "authors": [
+        {
+            "name": "Teddy Milon",
+            "email": "milonte@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    }
+}
