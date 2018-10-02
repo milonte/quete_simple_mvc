@@ -1,8 +1,6 @@
 <?php
 
 namespace Controller;
-// src/Controller/ItemController.php
-//require __DIR__ . '/../Model/ItemManager.php';
 
 use Model\ItemManager;
 

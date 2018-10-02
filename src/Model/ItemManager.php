@@ -14,7 +14,6 @@ class ItemManager
         $pdo = new \PDO(DSN, USER, PASS);
         $query = "SELECT * FROM item";
         $res = $pdo->query($query);
-        //var_dump($res->fetchAll());
         return $res->fetchAll();
     }
 }
