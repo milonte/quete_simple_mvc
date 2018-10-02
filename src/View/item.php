@@ -7,9 +7,10 @@
             <ul>
             <?php
             foreach ($items as $item) : ?>
-                <li><?= $item['title'] ?></li>
+                <li><a href="/item/<?= $item['id'] ?>"><?= $item['title'] ?></li>
             <?php endforeach ?>
             </ul>
         </section>
+        <a href="/categories">Go to categories</a>
 </body>
 </html>
