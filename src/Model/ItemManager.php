@@ -2,33 +2,45 @@
 
 namespace Model;
 
-// src/Model/ItemManager.php
-require __DIR__ . '/../../app/db.php';
-
-
-class ItemManager 
+class ItemManager extends AbstractManager
 {
-    // récupération de tous les items
-    public function selectAllItems() :array
+    const TABLE = 'item';
+
+    public function __construct(\PDO $pdo)
     {
-        $pdo = new \PDO(DSN, USER, PASS);
-        $query = "SELECT * FROM item";
-        $res = $pdo->query($query);
-        return $res->fetchAll();
+        parent::__construct(self::TABLE, $pdo);
     }
 
-    public function selectOneItem(int $id) : array
+    public function insert(Item $item): int
     {
-        $pdo = new \PDO(DSN, USER, PASS);
-        $query = "SELECT * FROM item WHERE id = :id";
-        $statement = $pdo->prepare($query);
-        $statement->bindValue(':id', $id, \PDO::PARAM_INT);  
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`title`) VALUES (:title)");
+        $statement->bindValue('title', $item->getTitle(), \PDO::PARAM_STR);
+        if ($statement->execute()) {
+            return $this->pdo->lastInsertId();
+        }
+    }
+
+    public function update(Item $item):int
+    {
+
+        // prepared request
+        $statement = $this->pdo->prepare("UPDATE $this->table SET `title` = :title WHERE id=:id");
+        $statement->bindValue('id', $item->getId(), \PDO::PARAM_INT);
+        $statement->bindValue('title', $item->getTitle(), \PDO::PARAM_STR);
+
+
+        return $statement->execute();
+    }
+
+    public function delete(int $id): void
+    {
+        // prepared request
+        $statement = $this->pdo->prepare("DELETE FROM $this->table WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
-        // contrairement à fetchAll(), fetch() ne renvoie qu'un seul résultat
-        return $statement->fetch();
     }
-
 }
+
 
 
 

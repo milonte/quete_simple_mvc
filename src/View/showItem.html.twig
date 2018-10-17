@@ -10,6 +10,8 @@
         <ul>  
             <li>Id : {{ item.id }}</li> 
         </ul>  
+        <a href="/item/edit/{{ item.id }}">Edit</a>
+        <a href="/item/delete/{{ item.id }}">Delete</a>
         <a href='/'>Back to list</a>
     </main>
 {% endblock %}     
